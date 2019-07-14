@@ -71,7 +71,6 @@ protected:
 
 void Scorebox::Draw(){
     Textbox::text.append(score_string);
- 
 
     Textbox::Draw();
 }

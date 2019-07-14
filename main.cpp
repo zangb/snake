@@ -18,7 +18,7 @@ World world(Punkt (100,100), Punkt (500,500));
 Textbox Headline("Snake friendo", Punkt(250,10), Punkt(350, 30));
 Scorebox Score("Score: ", Punkt(250, 33), Punkt(350, 53), score);
 //place the head as first snakebody object
-Snakebody Snake(Punkt (290,290), 119);
+Snakebody Snake(Punkt (300,290), 119);
 
 //Textbox_Pointer for notification boxes
 Textbox* message = NULL;
@@ -48,15 +48,14 @@ void VtlZyk(){
         Snakebody* temp = Snake.NextBody;
         //Appending of new Snakebodypart 
         //every 10 frames
-        ++counter;
-        if(counter == 20&&fooditems == 0){ 
+        if(fooditems == 0){ 
             int fail = 0;
             while(fail == 0){
             fail = 1;
             food = new Apple();
             if(temp != NULL){
             do {
-                    if(*(food->GetPos()) == temp->GetPos()){
+                    if((food->GetPos()) == temp->GetPos()){
                         delete food;
                         fail = 0;
                     }
@@ -70,21 +69,23 @@ void VtlZyk(){
         }
 
         temp = Snake.NextBody;
-        if (Snake.GetPos()==*(food->GetPos())&&length!=0) {
-            while (temp->NextBody != NULL) {
-                    temp = temp->NextBody;
-                }
-                temp->AppendBodyEle();
-                ++length;
-                delete food;
-                fooditems = 0;
-            }
-        else if (Snake.GetPos()==*(food->GetPos())&&length!=0) {
-                Snake.AppendBodyEle();
-                ++length;
-                delete food;
-                fooditems = 0;
-            }
+		if (fooditems != 0) {
+			if (Snake.GetPos() == (food->GetPos()) && length != 0) {
+				while (temp->NextBody != NULL) {
+					temp = temp->NextBody;
+				}
+				temp->AppendBodyEle();
+				++length;
+				delete food;
+				fooditems = 0;
+			}
+			else if (Snake.GetPos() == (food->GetPos()) && length != 0) {
+				Snake.AppendBodyEle();
+				++length;
+				delete food;
+				fooditems = 0;
+			}
+		}
         //End of food shit
         
         
