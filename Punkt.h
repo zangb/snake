@@ -7,6 +7,7 @@ public:
 	int X;
 	int Y;
 	Punkt(int x = 1, int y = 1);
+	void operator=(const Punkt& PointtoSet);
 	bool operator==(const Punkt& PointToCompare);
 	bool operator!=(const Punkt& PointToCompare);
 	bool operator<(const Punkt& PointToCompare);
@@ -25,6 +26,12 @@ Punkt::Punkt(int x, int y) {
 	X = x;
 	Y = y;
 }
+
+void Punkt::operator=(const Punkt& PointtoSet){
+	this->X = PointtoSet.X;
+	this->Y = PointtoSet.Y;
+}
+
 
 bool Punkt::operator==(const Punkt& PointToCompare) {
 	if (X == PointToCompare.X && Y == PointToCompare.Y) {
