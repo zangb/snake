@@ -4,6 +4,7 @@
 #include "Punkt.h"
 #include "World.h"
 #include "Snakebody.h"
+#include "Exception.h"
 using namespace std;
 
 World world(Punkt (100,100), Punkt (500,500));
@@ -20,38 +21,43 @@ void VtlZyk(){
 
     //fetches current orientation and if the snake still is inside the world
     //for every key hit
-    if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-5>world.GetPos().Y){ //W               
+
+    if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-10>world.GetPos().Y){ //W               
     Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-10));
     }
-    if(Snake.GetOrientation() == 97&&Snake.GetPos().X-5>world.GetPos().X){    //A x-5
+    if(Snake.GetOrientation() == 97&&Snake.GetPos().X-10>world.GetPos().X){    //A x-5
     Snake.SetHeadpos(Punkt(Snake.GetPos().X-10, Snake.GetPos().Y));
     }
-    if(Snake.GetOrientation() == 115&&Snake.GetPos().Y+5<world.GetSize().Y){ //Sy+5
+    if(Snake.GetOrientation() == 115&&Snake.GetPos().Y+10<world.GetSize().Y){ //Sy+5
     Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y+10));
     }
-    if(Snake.GetOrientation() == 100&&Snake.GetPos().X+5<world.GetSize().X){ //Dx+5
+    if(Snake.GetOrientation() == 100&&Snake.GetPos().X+10<world.GetSize().X){ //Dx+5
     Snake.SetHeadpos(Punkt(Snake.GetPos().X+10, Snake.GetPos().Y));
     }
 
 	//New orientation and positioning for the bodyparts
     //alternative as vector
-	Snakebody* temp = Snake.NextBody;
+	 Snakebody* temp = Snake.NextBody;
 	while(temp!=NULL){
+        try{
+            if(Snake.GetPos() == temp->GetPos()&& Snake.GetOrientation()!= temp->GetOrientation()){
+                throw CollisionExcept(1);
+            }
+        }
+        catch (exception& e){
+            e.what();
+        }
 		temp->SetHeadpos(Punkt(temp->GetPrevPos().X, temp->GetPrevPos().Y)); //Setting new position to the one of the previous object, same with orientation
-		temp->SetOrientation(temp->GetPrevorient());	
-		temp->SetPrevorient(temp->PrevBody->GetOrientation());		//Retrieving new position from previous object and saving it
-		temp->SetPrevPos(temp->PrevBody->GetPos());
+		temp->SetPrevPos(temp->PrevBody->GetPos());                            //Retrieving new position from previous object and saving it
+        temp->SetOrientation(temp->GetPrevorient());	
+		temp->SetPrevorient(temp->PrevBody->GetOrientation());      		
 		temp = temp->NextBody;
 	}
 
 	temp = Snake.NextBody;
-<<<<<<< HEAD
 	//Appending of new Snakebodypart
-    
-=======
 	//Appending of new Snakebodypart 
-    //every 10 frames
->>>>>>> 4d94f2589a37371fac57f3e1587364cebe6b06f8
+    //every 10 framesgit c
     ++counter;
     if(counter == 10){
        
@@ -70,6 +76,7 @@ void VtlZyk(){
 	}
 	
 }
+
 void VtlPaint(int xl, int yo, int xr, int yu){
     world.Draw();
     Headline.Draw();
