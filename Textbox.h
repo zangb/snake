@@ -49,16 +49,19 @@ class Scorebox : public Textbox{
 private:
     int* score_pointer;
     std::string score_string;
-
+    std::string text_to_print;
 
 public:
-    Scorebox(std::string TEXT, Punkt POS, Punkt SIZE, int& score) : Textbox(TEXT, POS, SIZE){
-        score_pointer = &score;
+    Scorebox(std::string TEXT, Punkt POS, Punkt SIZE, int* score) : Textbox(TEXT, POS, SIZE){
+        score_pointer = score;
+        
         score_string = std::to_string(*score_pointer);
     }
     ~Scorebox(){
         ;
     }
+
+    void updateScore();
 
     int* getScore(){
         return score_pointer;
@@ -69,11 +72,17 @@ protected:
 
 
 void Scorebox::Draw(){
-    std::string text_to_print = GetText();
-
-    text_to_print.append(score_string);
+    
 
     Textbox::Draw(text_to_print);
+}
+
+void Scorebox::updateScore(){
+    
+    score_string = std::to_string(*score_pointer);
+    text_to_print = GetText();
+    text_to_print.append(score_string);
+    
 }
 
 #endif
