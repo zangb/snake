@@ -13,7 +13,7 @@ private:
 public:     
     Apple();
     void Draw();
-    Punkt* GetPos();
+    Punkt GetPos();
 };
 
 Apple::Apple(){
@@ -28,8 +28,8 @@ void Apple::Draw(){
     Rect(pos->X-5, pos->Y-5, pos->X+5,pos->Y+5);
 }
 
-Punkt* Apple::GetPos(){
-    return pos;
+Punkt Apple::GetPos(){
+    return *(this->pos);
 }
 
 #endif
