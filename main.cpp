@@ -22,74 +22,79 @@ Textbox* message = NULL;
 
 //declare colors for head and body
 Colour headColor(100, 200, 100);
-Colour bodyColor(0, 100, 0);
+Colour bodyColor(0, 100, 0);   
+Colour msgColour(150,150,150);
+
 
 int counter = 0, length = 0;
+
+//bool for pause
+int running = 0;
 
 void VtlInit(){
     cout << "Welcome to Snake" << endl;
 }
 
 void VtlZyk(){
+    if(running > 0){
+        //fetches current orientation and if the snake still is inside the world
+        //for every key hit
 
-    //fetches current orientation and if the snake still is inside the world
-    //for every key hit
+        if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-10>world.GetPos().Y){ //W               
+        Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-10));
+        }
+        if(Snake.GetOrientation() == 97&&Snake.GetPos().X-10>world.GetPos().X){    //A x-5
+        Snake.SetHeadpos(Punkt(Snake.GetPos().X-10, Snake.GetPos().Y));
+        }
+        if(Snake.GetOrientation() == 115&&Snake.GetPos().Y+10<world.GetSize().Y){ //Sy+5
+        Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y+10));
+        }
+        if(Snake.GetOrientation() == 100&&Snake.GetPos().X+10<world.GetSize().X){ //Dx+5
+        Snake.SetHeadpos(Punkt(Snake.GetPos().X+10, Snake.GetPos().Y));
+        }
 
-    if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-10>world.GetPos().Y){ //W               
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-10));
-    }
-    if(Snake.GetOrientation() == 97&&Snake.GetPos().X-10>world.GetPos().X){    //A x-5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X-10, Snake.GetPos().Y));
-    }
-    if(Snake.GetOrientation() == 115&&Snake.GetPos().Y+10<world.GetSize().Y){ //Sy+5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y+10));
-    }
-    if(Snake.GetOrientation() == 100&&Snake.GetPos().X+10<world.GetSize().X){ //Dx+5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X+10, Snake.GetPos().Y));
-    }
-
-	//New orientation and positioning for the bodyparts
-    //alternative as vector
-	 Snakebody* temp = Snake.NextBody;
-	while(temp!=NULL){
-        try{
-            if(Snake.GetPos() == temp->GetPos()){
-                throw CollisionExcept(1, message);
+        //New orientation and positioning for the bodyparts
+        //alternative as vector
+        Snakebody* temp = Snake.NextBody;
+        while(temp!=NULL){
+            try{
+                if(Snake.GetPos() == temp->GetPos()){
+                    throw CollisionExcept(1, message, running);
+                }
             }
+            catch (CollisionExcept& e){
+                e.what();
+            }
+            temp->SetHeadpos(Punkt(temp->GetPrevPos().X, temp->GetPrevPos().Y)); //Setting new position to the one of the previous object, same with orientation
+            temp->SetPrevPos(temp->PrevBody->GetPos());                            //Retrieving new position from previous object and saving it
+            temp->SetOrientation(temp->GetPrevorient());	
+            temp->SetPrevorient(temp->PrevBody->GetOrientation());      		
+            temp = temp->NextBody;
         }
-        catch (CollisionExcept& e){
-            e.what();
-        }
-		temp->SetHeadpos(Punkt(temp->GetPrevPos().X, temp->GetPrevPos().Y)); //Setting new position to the one of the previous object, same with orientation
-		temp->SetPrevPos(temp->PrevBody->GetPos());                            //Retrieving new position from previous object and saving it
-        temp->SetOrientation(temp->GetPrevorient());	
-		temp->SetPrevorient(temp->PrevBody->GetOrientation());      		
-		temp = temp->NextBody;
-	}
 
-	temp = Snake.NextBody;
-	//Appending of new Snakebodypart
-	//Appending of new Snakebodypart 
-    //every 10 framesgit c
-	//Appending of new Snakebodypart 
-    //every 10 frames
-    ++counter;
-    if(counter == 10){
-       
-		if (length != 0) {
-			while (temp->NextBody != NULL) {
-				temp = temp->NextBody;
-			}
-			temp->AppendBodyEle();
-            ++length;
-		}
-		else if (length == 0) {
-			Snake.AppendBodyEle();
-            ++length;
-		}
-		counter = 0;
-	}
-	
+        temp = Snake.NextBody;
+        //Appending of new Snakebodypart
+        //Appending of new Snakebodypart 
+        //every 10 framesgit c
+        //Appending of new Snakebodypart 
+        //every 10 frames
+        ++counter;
+        if(counter == 10){
+        
+            if (length != 0) {
+                while (temp->NextBody != NULL) {
+                    temp = temp->NextBody;
+                }
+                temp->AppendBodyEle();
+                ++length;
+            }
+            else if (length == 0) {
+                Snake.AppendBodyEle();
+                ++length;
+            }
+            counter = 0;
+        }
+    }
 }
 
 void VtlPaint(int xl, int yo, int xr, int yu){
@@ -102,11 +107,15 @@ void VtlPaint(int xl, int yo, int xr, int yu){
 		temp = temp->NextBody;
 	}
     if(message != NULL){
+        FillCol(msgColour);
         message->Draw();
     }
 }
 
 void VtlKeyHit(int key){
+    if(running == 0){
+        running = 1;
+    }
     if(key == 119&&Snake.GetPos().Y>100){ //W               
     Snake.SetOrientation(119);
     }
