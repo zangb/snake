@@ -6,6 +6,7 @@
 #include "Snakebody.h"
 #include "Exception.h"
 #include "Colour.h"
+#include "Apple.h"
 using namespace std;
 
 
@@ -24,17 +25,62 @@ Textbox* message = NULL;
 Colour headColor(100, 200, 100);
 Colour bodyColor(0, 100, 0);
 
-int counter = 0, length = 0;
+//Foodpointer
+
+Apple* food = NULL;
+
+int counter = 0, length = 0, fooditems = 0;
 
 void VtlInit(){
     cout << "Welcome to Snake" << endl;
 }
 
 void VtlZyk(){
+//Shit to do for food
+Snakebody* temp = Snake.NextBody;
+	//Appending of new Snakebodypart 
+    //every 10 frames
+    ++counter;
+    if(counter == 20&&fooditems == 0){ 
+        int fail = 0;
+        while(fail == 0){
+        fail = 1;
+        food = new Apple();
+       	if(temp != NULL){
+           do {
+				if(food->GetPos() == temp->GetPos()){
+                    delete food;
+                    fail = 0;
+                }
+                temp = temp->NextBody;
+			} while (temp != NULL&& food != NULL);
+            temp = Snake.NextBody;
+           }
+        }
+        counter = 0;
+        fooditems = 1;
+    }
 
+    temp = Snake.NextBody;
+	if (Snake.GetPos()==food->GetPos()&&length!=0) {
+		while (temp->NextBody != NULL) {
+				temp = temp->NextBody;
+			}
+			temp->AppendBodyEle();
+            ++length;
+            delete food;
+            fooditems = 0;
+		}
+	else if (Snake.GetPos()==food->GetPos()&&length!=0) {
+			Snake.AppendBodyEle();
+            ++length;
+            delete food;
+            fooditems = 0;
+		}
+//End of food shit
+	
     //fetches current orientation and if the snake still is inside the world
     //for every key hit
-
     if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-10>world.GetPos().Y){ //W               
     Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-10));
     }
@@ -48,9 +94,10 @@ void VtlZyk(){
     Snake.SetHeadpos(Punkt(Snake.GetPos().X+10, Snake.GetPos().Y));
     }
 
+
 	//New orientation and positioning for the bodyparts
     //alternative as vector
-	 Snakebody* temp = Snake.NextBody;
+    temp = Snake.NextBody;
 	while(temp!=NULL){
         try{
             if(Snake.GetPos() == temp->GetPos()){
@@ -65,31 +112,7 @@ void VtlZyk(){
         temp->SetOrientation(temp->GetPrevorient());	
 		temp->SetPrevorient(temp->PrevBody->GetOrientation());      		
 		temp = temp->NextBody;
-	}
-
-	temp = Snake.NextBody;
-	//Appending of new Snakebodypart
-	//Appending of new Snakebodypart 
-    //every 10 framesgit c
-	//Appending of new Snakebodypart 
-    //every 10 frames
-    ++counter;
-    if(counter == 10){
-       
-		if (length != 0) {
-			while (temp->NextBody != NULL) {
-				temp = temp->NextBody;
-			}
-			temp->AppendBodyEle();
-            ++length;
-		}
-		else if (length == 0) {
-			Snake.AppendBodyEle();
-            ++length;
-		}
-		counter = 0;
-	}
-	
+    }	
 }
 
 void VtlPaint(int xl, int yo, int xr, int yu){
@@ -103,6 +126,9 @@ void VtlPaint(int xl, int yo, int xr, int yu){
 	}
     if(message != NULL){
         message->Draw();
+    }
+    if(food!=NULL){
+        food->Draw();
     }
 }
 
