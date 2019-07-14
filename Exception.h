@@ -4,7 +4,7 @@
 #include "Textbox.h"
 
 
-class CollisionExcept {
+class CollisionExcept : std::exception{
 private:
     int error;
 public:

@@ -4,11 +4,8 @@
 #include "Punkt.h"
 #include "World.h"
 #include "Snakebody.h"
-<<<<<<< HEAD
 #include "Exception.h"
-=======
 #include "Colour.h"
->>>>>>> 7b8b5bedb91de61575c5c3614f62c545d42e2289
 using namespace std;
 
 
