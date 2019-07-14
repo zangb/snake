@@ -4,12 +4,22 @@
 #include "Punkt.h"
 #include "World.h"
 #include "Snakebody.h"
+#include "Colour.h"
 using namespace std;
 
+
+
 World world(Punkt (100,100), Punkt (500,500));
+
 Textbox Headline("Snake friendo", Punkt(250,10), Punkt(350, 30));
+
 //place the head as first snakebody object
 Snakebody Snake(Punkt (290,290), 119);
+
+//declare colors for head and body
+Colour headColor(100, 200, 100);
+Colour bodyColor(0, 100, 0);
+
 int counter = 0, length = 0;
 
 void VtlInit(){
@@ -45,13 +55,8 @@ void VtlZyk(){
 	}
 
 	temp = Snake.NextBody;
-<<<<<<< HEAD
-	//Appending of new Snakebodypart
-    
-=======
 	//Appending of new Snakebodypart 
     //every 10 frames
->>>>>>> 4d94f2589a37371fac57f3e1587364cebe6b06f8
     ++counter;
     if(counter == 10){
        
@@ -73,10 +78,10 @@ void VtlZyk(){
 void VtlPaint(int xl, int yo, int xr, int yu){
     world.Draw();
     Headline.Draw();
-    Snake.Draw();
+    Snake.Draw(headColor);
 	Snakebody* temp = Snake.NextBody;
 	while(temp != NULL){
-		temp->Draw();
+		temp->Draw(bodyColor);
 		temp = temp->NextBody;
 	}
 }
