@@ -1,0 +1,1 @@
+g++ -o ObjectNamehere $(pkg-config --cflags --libs gtk+-2.0) *.cpp
