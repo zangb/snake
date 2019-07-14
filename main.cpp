@@ -8,6 +8,7 @@ using namespace std;
 
 World world(Punkt (100,100), Punkt (500,500));
 Textbox Headline("Snake friendo", Punkt(250,10), Punkt(350, 30));
+//place the head as first snakebody object
 Snakebody Snake(Punkt (290,290), 119);
 int counter = 0, length = 0;
 
@@ -16,6 +17,9 @@ void VtlInit(){
 }
 
 void VtlZyk(){
+
+    //fetches current orientation and if the snake still is inside the world
+    //for every key hit
     if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-5>world.GetPos().Y){ //W               
     Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-10));
     }
@@ -30,6 +34,7 @@ void VtlZyk(){
     }
 
 	//New orientation and positioning for the bodyparts
+    //alternative as vector
 	Snakebody* temp = Snake.NextBody;
 	while(temp!=NULL){
 		temp->SetHeadpos(Punkt(temp->GetPrevPos().X, temp->GetPrevPos().Y)); //Setting new position to the one of the previous object, same with orientation
@@ -38,9 +43,15 @@ void VtlZyk(){
 		temp->SetPrevPos(temp->PrevBody->GetPos());
 		temp = temp->NextBody;
 	}
+
 	temp = Snake.NextBody;
+<<<<<<< HEAD
 	//Appending of new Snakebodypart
     
+=======
+	//Appending of new Snakebodypart 
+    //every 10 frames
+>>>>>>> 4d94f2589a37371fac57f3e1587364cebe6b06f8
     ++counter;
     if(counter == 10){
        

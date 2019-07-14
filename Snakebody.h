@@ -15,7 +15,9 @@ public:
 	~Snakebody();
     Snakebody* PrevBody;
     Snakebody* NextBody;
+    //default constructor for first object
     Snakebody(Punkt POS, int Orientation);
+    //constructor for adding a object to the double enchanged list
     Snakebody(Punkt POS, Punkt PREVPOS, int PREVORIENT, Snakebody* prev, Snakebody* next);
     Punkt GetPos();
 	Punkt GetPrevPos();
