@@ -4,6 +4,7 @@
 #include "WinAdapt.h"
 #include <iostream>
 #include "Punkt.h"
+#include "Colour.h"
 
 class Snakebody {
 private:
@@ -26,7 +27,7 @@ public:
 	void SetPrevPos(Punkt POS);
 	int GetPrevorient();
 	void SetPrevorient(int ORIENT);
-    void Draw();
+    void Draw(const Colour& c);
     void SetOrientation(int Orientation);
     void AppendBodyEle();
 };
@@ -75,8 +76,8 @@ void Snakebody::SetPrevPos(Punkt POS) {
 	prevpos = POS;
 }
 
-void Snakebody::Draw(){
-	 FillCol(0, 100, 0);
+void Snakebody::Draw(const Colour& c){
+	 FillCol(c);
      Rect(GetPos().X-5, GetPos().Y-5, GetPos().X+5, GetPos().Y+5);
 }
 void Snakebody::AppendBodyEle(){

@@ -1,7 +1,7 @@
 /*
    Windows- Adapter- Programm
    PIN3 SS99
-   Kn/Bö
+   Kn/Bï¿½
    Double buffering Farm 2011.05.03
    DIESE DATEI SOLL NICHT GEAENDERT WERDEN
    Stand 03.05.2011
@@ -188,6 +188,11 @@ void FillPoly(int* lpPoint, int nPoints)
     Polygon(Memhdc, (LPPOINT)lpPoint, nPoints);
 }
 
+//overloading the WinAdapt function FillCol to use Colour as parameter
+void FillCol(const Colour& c){
+    FillCol(c.getRed(), c.getGreen(), c.getBlue());
+}
+
 #endif
 
 #ifdef __unix__
@@ -372,6 +377,13 @@ int main( int   argc,
     gtk_main ();
 
     return 0;
+}
+
+
+
+//overloading the WinAdapt function FillCol to use Colour as parameter
+void FillCol(const Colour& c){
+    FillCol(c.getRed(), c.getGreen(), c.getBlue());
 }
 #endif
 
