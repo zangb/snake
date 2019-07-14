@@ -14,7 +14,7 @@ protected:
 private:
     Punkt position;
     Punkt size;
-public:s
+public:
     Textbox(std::string TEXT, Punkt pos, Punkt size);
     std::string GetText();
     void SetText(std::string TEXT);

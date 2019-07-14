@@ -10,13 +10,7 @@
 using namespace std;
 
 
-
-
-
-
-
-int counter = 0, length = 0;
-int score;
+int score = 0;
 
 
 World world(Punkt (100,100), Punkt (500,500));
@@ -49,73 +43,54 @@ void VtlInit(){
 }
 
 void VtlZyk(){
-//Shit to do for food
-Snakebody* temp = Snake.NextBody;
-	//Appending of new Snakebodypart 
-    //every 10 frames
-    ++counter;
-    if(counter == 20&&fooditems == 0){ 
-        int fail = 0;
-        while(fail == 0){
-        fail = 1;
-        food = new Apple();
-       	if(temp != NULL){
-           do {
-				if(food->GetPos() == temp->GetPos()){
-                    delete food;
-                    fail = 0;
-                }
-                temp = temp->NextBody;
-			} while (temp != NULL&& food != NULL);
-            temp = Snake.NextBody;
-           }
-        }
-        counter = 0;
-        fooditems = 1;
-    }
-
-    temp = Snake.NextBody;
-	if (Snake.GetPos()==food->GetPos()&&length!=0) {
-		while (temp->NextBody != NULL) {
-				temp = temp->NextBody;
-			}
-			temp->AppendBodyEle();
-            ++length;
-            delete food;
-            fooditems = 0;
-		}
-	else if (Snake.GetPos()==food->GetPos()&&length!=0) {
-			Snake.AppendBodyEle();
-            ++length;
-            delete food;
-            fooditems = 0;
-		}
-//End of food shit
-	
-    //fetches current orientation and if the snake still is inside the world
-    //for every key hit
-    if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-10>world.GetPos().Y){ //W               
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-10));
-    }
-    if(Snake.GetOrientation() == 97&&Snake.GetPos().X-10>world.GetPos().X){    //A x-5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X-10, Snake.GetPos().Y));
-    }
-    if(Snake.GetOrientation() == 115&&Snake.GetPos().Y+10<world.GetSize().Y){ //Sy+5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y+10));
-    }
-    if(Snake.GetOrientation() == 100&&Snake.GetPos().X+10<world.GetSize().X){ //Dx+5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X+10, Snake.GetPos().Y));
-    }
-
-
-	//New orientation and positioning for the bodyparts
-    //alternative as vector
-    temp = Snake.NextBody;
-	while(temp!=NULL){
-        try{
-            if(Snake.GetPos() == temp->GetPos()){
-                throw CollisionExcept(1, message);
     if(running > 0){
+        //Shit to do for food
+        Snakebody* temp = Snake.NextBody;
+        //Appending of new Snakebodypart 
+        //every 10 frames
+        ++counter;
+        if(counter == 20&&fooditems == 0){ 
+            int fail = 0;
+            while(fail == 0){
+            fail = 1;
+            food = new Apple();
+            if(temp != NULL){
+            do {
+                    if(food->GetPos() == temp->GetPos()){
+                        delete food;
+                        fail = 0;
+                    }
+                    temp = temp->NextBody;
+                } while (temp != NULL&& food != NULL);
+                temp = Snake.NextBody;
+            }
+            }
+            counter = 0;
+            fooditems = 1;
+        }
+
+        temp = Snake.NextBody;
+        if (Snake.GetPos()==food->GetPos()&&length!=0) {
+            while (temp->NextBody != NULL) {
+                    temp = temp->NextBody;
+                }
+                temp->AppendBodyEle();
+                ++length;
+                delete food;
+                fooditems = 0;
+            }
+        else if (Snake.GetPos()==food->GetPos()&&length!=0) {
+                Snake.AppendBodyEle();
+                ++length;
+                delete food;
+                fooditems = 0;
+            }
+        //End of food shit
+        
+        
+
+
+	   
         //fetches current orientation and if the snake still is inside the world
         //for every key hit
 
@@ -134,7 +109,6 @@ Snakebody* temp = Snake.NextBody;
 
         //New orientation and positioning for the bodyparts
         //alternative as vector
-        Snakebody* temp = Snake.NextBody;
         while(temp!=NULL){
             try{
                 if(Snake.GetPos() == temp->GetPos()){
@@ -150,7 +124,7 @@ Snakebody* temp = Snake.NextBody;
             temp->SetPrevorient(temp->PrevBody->GetOrientation());      		
             temp = temp->NextBody;
         }
-     
+    }
 }
 
 void VtlPaint(int xl, int yo, int xr, int yu){
