@@ -10,13 +10,18 @@ private:
 public:
     CollisionExcept(int Error);
     void what();
+    int GetError();
 };
+
+int CollisionExcept::GetError(){
+    return error;
+}
 
 CollisionExcept::CollisionExcept(int Error){
     error = Error;
 }
 void CollisionExcept::what(){
-    switch(error){
+    switch(GetError()){
         case 1: 
         Textbox* temp = new Textbox("You collided with your own body",Punkt(250,250), Punkt(30,30));
         temp->Draw();
