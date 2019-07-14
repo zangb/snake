@@ -19,6 +19,8 @@ public:
     std::string GetText();
     void SetText(std::string TEXT);
     void Draw();
+    void Draw(std::string string_to_draw);
+
 };
 
 Textbox::Textbox(std::string TEXT, Punkt POS, Punkt SIZE): World(POS, SIZE){
@@ -36,6 +38,11 @@ void Textbox::SetText(std::string TEXT){
 void Textbox::Draw(){
  Rect(GetPos().X, GetPos().Y, GetSize().X, GetSize().Y);
  Text(GetPos().X + (GetSize().X - GetPos().X) / 2 - (text.size() * 3.2), GetPos().Y + (GetSize().Y - GetPos().Y) / 2 - 10, GetText().c_str());
+}
+
+void Textbox::Draw(std::string string_to_draw){
+Rect(GetPos().X, GetPos().Y, GetSize().X, GetSize().Y);
+Text(GetPos().X + (GetSize().X - GetPos().X) / 2 - (string_to_draw.size() * 3.2), GetPos().Y + (GetSize().Y - GetPos().Y) / 2 - 10, string_to_draw.c_str()); 
 }
 
 
@@ -56,7 +63,7 @@ public:
         ;
     }
 
-    int* geScore(){
+    int* getScore(){
         return score_pointer;
     }
 
@@ -70,10 +77,11 @@ protected:
 
 
 void Scorebox::Draw(){
-    Textbox::text.append(score_string);
- 
+    std::string text_to_print = GetText();
 
-    Textbox::Draw();
+    text_to_print.append(score_string);
+
+    Textbox::Draw(text_to_print);
 }
 
 #endif
