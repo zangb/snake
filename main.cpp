@@ -10,13 +10,13 @@
 using namespace std;
 
 
-int score = 0;
 
+int counter = 0, length = 0, fooditems = 0;
 
 World world(Punkt (100,100), Punkt (500,500));
 
 Textbox Headline("Snake friendo", Punkt(250,10), Punkt(350, 30));
-Scorebox Score("Score: ", Punkt(250, 33), Punkt(350, 53), score);
+Scorebox Score("Score: ", Punkt(250, 33), Punkt(350, 53), length);
 //place the head as first snakebody object
 Snakebody Snake(Punkt (300,290), 119);
 
@@ -28,12 +28,10 @@ Colour headColor(100, 200, 100);
 Colour bodyColor(0, 100, 0);   
 Colour msgColour(150,150,150);
 
-
 //Foodpointer
-
 Apple* food = NULL;
 
-int counter = 0, length = 0, fooditems = 0;
+
 
 //bool for pause
 int running = 0;
@@ -46,8 +44,6 @@ void VtlZyk(){
     if(running > 0){
         //Shit to do for food
         Snakebody* temp = Snake.NextBody;
-        //Appending of new Snakebodypart 
-        //every 10 frames
         if(fooditems == 0){ 
             int fail = 0;
             while(fail == 0){
@@ -64,7 +60,6 @@ void VtlZyk(){
                 temp = Snake.NextBody;
             }
             }
-            counter = 0;
             fooditems = 1;
         }
 
@@ -79,7 +74,7 @@ void VtlZyk(){
 				delete food;
 				fooditems = 0;
 			}
-			else if (Snake.GetPos() == (food->GetPos()) && length != 0) {
+			else if (Snake.GetPos() == (food->GetPos()) && length == 0) {
 				Snake.AppendBodyEle();
 				++length;
 				delete food;
@@ -88,9 +83,9 @@ void VtlZyk(){
 		}
         //End of food shit
         
-        
+        //Update Score
 
-
+		
 	   
         //fetches current orientation and if the snake still is inside the world
         //for every key hit

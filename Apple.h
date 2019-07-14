@@ -20,7 +20,7 @@ Apple::Apple(){
     srand(time(0));
     int r = rand();
     int r2 = rand();
-    pos = Punkt((r%40)*10+100, (r2%40*10)+100);
+    pos = Punkt((r%40)*10+110, (r2%40*10)+110);
 }
 
 void Apple::Draw(){

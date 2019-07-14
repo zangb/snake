@@ -10,7 +10,6 @@
 class Textbox : public World {
 protected:
     std::string text;
-
 private:
     Punkt position;
     Punkt size;
@@ -50,28 +49,19 @@ public:
         score_pointer = &score;
         score_string = std::to_string(*score_pointer);
     }
-    
-
     ~Scorebox(){
         ;
     }
-
     int* geScore(){
         return score_pointer;
     }
-
     void Draw();
-
 protected:
-
-
-
 };
 
 
 void Scorebox::Draw(){
-    Textbox::text.append(score_string);
-
+    Textbox::SetText(score_string); 
     Textbox::Draw();
 }
 
