@@ -17,6 +17,9 @@ Textbox Headline("Snake friendo", Punkt(250,10), Punkt(350, 30));
 //place the head as first snakebody object
 Snakebody Snake(Punkt (290,290), 119);
 
+//Textbox_Pointer for notification boxes
+Textbox* message = NULL;
+
 //declare colors for head and body
 Colour headColor(100, 200, 100);
 Colour bodyColor(0, 100, 0);
@@ -50,8 +53,8 @@ void VtlZyk(){
 	 Snakebody* temp = Snake.NextBody;
 	while(temp!=NULL){
         try{
-            if(Snake.GetPos() == temp->GetPos()&& Snake.GetOrientation()!= temp->GetOrientation()){
-                throw CollisionExcept(1);
+            if(Snake.GetPos() == temp->GetPos()){
+                throw CollisionExcept(1, message);
             }
         }
         catch (CollisionExcept& e){
@@ -98,6 +101,9 @@ void VtlPaint(int xl, int yo, int xr, int yu){
 		temp->Draw(bodyColor);
 		temp = temp->NextBody;
 	}
+    if(message != NULL){
+        message->Draw();
+    }
 }
 
 void VtlKeyHit(int key){
