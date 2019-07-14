@@ -33,7 +33,7 @@ void Textbox::SetText(std::string TEXT){
 
 void Textbox::Draw(){
  Rect(GetPos().X, GetPos().Y, GetSize().X, GetSize().Y);
- Text(GetPos().X+5, GetPos().Y+3, GetText().c_str());
+ Text(GetPos().X + (GetSize().X - GetPos().X) / 2 - (text.size() * 3.2), GetPos().Y + (GetSize().Y - GetPos().Y) / 2 - 10, GetText().c_str());
 }
 
 #endif
