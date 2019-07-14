@@ -17,17 +17,18 @@ void VtlInit(){
 
 void VtlZyk(){
     if(Snake.GetOrientation() == 119&&Snake.GetPos().Y-5>world.GetPos().Y){ //W               
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-5));
+    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y-10));
     }
     if(Snake.GetOrientation() == 97&&Snake.GetPos().X-5>world.GetPos().X){    //A x-5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X-5, Snake.GetPos().Y));
+    Snake.SetHeadpos(Punkt(Snake.GetPos().X-10, Snake.GetPos().Y));
     }
     if(Snake.GetOrientation() == 115&&Snake.GetPos().Y+5<world.GetSize().Y){ //Sy+5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y+5));
+    Snake.SetHeadpos(Punkt(Snake.GetPos().X, Snake.GetPos().Y+10));
     }
     if(Snake.GetOrientation() == 100&&Snake.GetPos().X+5<world.GetSize().X){ //Dx+5
-    Snake.SetHeadpos(Punkt(Snake.GetPos().X+5, Snake.GetPos().Y));
+    Snake.SetHeadpos(Punkt(Snake.GetPos().X+10, Snake.GetPos().Y));
     }
+
 	//New orientation and positioning for the bodyparts
 	Snakebody* temp = Snake.NextBody;
 	while(temp!=NULL){
@@ -39,6 +40,7 @@ void VtlZyk(){
 	}
 	temp = Snake.NextBody;
 	//Appending of new Snakebodypart
+    
     ++counter;
     if(counter == 10){
        
@@ -47,9 +49,11 @@ void VtlZyk(){
 				temp = temp->NextBody;
 			}
 			temp->AppendBodyEle();
+            ++length;
 		}
 		else if (length == 0) {
 			Snake.AppendBodyEle();
+            ++length;
 		}
 		counter = 0;
 	}
@@ -65,6 +69,7 @@ void VtlPaint(int xl, int yo, int xr, int yu){
 		temp = temp->NextBody;
 	}
 }
+
 void VtlKeyHit(int key){
     if(key == 119&&Snake.GetPos().Y>100){ //W               
     Snake.SetOrientation(119);
