@@ -56,7 +56,7 @@ void VtlZyk(){
             food = new Apple();
             if(temp != NULL){
             do {
-                    if(food->GetPos() == temp->GetPos()){
+                    if(*(food->GetPos()) == temp->GetPos()){
                         delete food;
                         fail = 0;
                     }
@@ -70,7 +70,7 @@ void VtlZyk(){
         }
 
         temp = Snake.NextBody;
-        if (Snake.GetPos()==food->GetPos()&&length!=0) {
+        if (Snake.GetPos()==*(food->GetPos())&&length!=0) {
             while (temp->NextBody != NULL) {
                     temp = temp->NextBody;
                 }
@@ -79,7 +79,7 @@ void VtlZyk(){
                 delete food;
                 fooditems = 0;
             }
-        else if (Snake.GetPos()==food->GetPos()&&length!=0) {
+        else if (Snake.GetPos()==*(food->GetPos())&&length!=0) {
                 Snake.AppendBodyEle();
                 ++length;
                 delete food;
