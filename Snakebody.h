@@ -30,6 +30,7 @@ public:
     void Draw(const Colour& c);
     void SetOrientation(int Orientation);
     void AppendBodyEle();
+    void ResetBody();
 };
 Snakebody::~Snakebody() {
 	if (NextBody != NULL) {
@@ -106,6 +107,10 @@ void Snakebody::AppendBodyEle(){
     }
 }
 
+void Snakebody::ResetBody(){
+    delete NextBody;
+    NextBody = NULL;
+}
 
 #endif
 
