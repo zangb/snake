@@ -1,0 +1,14 @@
+class ExceptionKesselUeberhitzung : std::exception{
+private:
+	char temp[300];
+	double KesselTemperatur; 
+	double KesselInhalt;
+	double Waermemenge;
+	Kessel* Problemkessel;
+
+public:
+
+	ExceptionKesselUeberhitzung(Kessel* Kess, double nKesselTemperatur, double nKesselInhalt, double nWaermemenge);
+	~ExceptionKesselUeberhitzung();
+	const char* what() const noexcept;
+};

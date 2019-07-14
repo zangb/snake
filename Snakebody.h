@@ -1,5 +1,5 @@
-#ifndef SNAKEBODY
-#define SNAKEBODY
+#ifndef SNAKEBODY_H
+#define SNAKEBODY_H
 
 #include "WinAdapt.h"
 #include <iostream>
