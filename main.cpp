@@ -10,16 +10,6 @@ using namespace std;
 
 
 
-World world(Punkt (100,100), Punkt (500,500));
-
-Textbox Headline("Snake friendo", Punkt(250,10), Punkt(350, 30));
-
-//place the head as first snakebody object
-Snakebody Snake(Punkt (290,290), 119);
-
-//Textbox_Pointer for notification boxes
-Textbox* message = NULL;
-
 //declare colors for head and body
 Colour headColor(100, 200, 100);
 Colour bodyColor(0, 100, 0);   
@@ -27,6 +17,19 @@ Colour msgColour(150,150,150);
 
 
 int counter = 0, length = 0;
+int score;
+
+
+World world(Punkt (100,100), Punkt (500,500));
+
+Textbox Headline("Snake friendo", Punkt(250,10), Punkt(350, 30));
+Scorebox Score("Score: ", Punkt(250, 33), Punkt(350, 53), score);
+//place the head as first snakebody object
+Snakebody Snake(Punkt (290,290), 119);
+
+//Textbox_Pointer for notification boxes
+Textbox* message = NULL;
+
 
 //bool for pause
 int running = 0;
@@ -100,6 +103,7 @@ void VtlZyk(){
 void VtlPaint(int xl, int yo, int xr, int yu){
     world.Draw();
     Headline.Draw();
+    Score.Draw();
     Snake.Draw(headColor);
 	Snakebody* temp = Snake.NextBody;
 	while(temp != NULL){
