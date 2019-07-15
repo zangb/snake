@@ -16,7 +16,7 @@
 using namespace std;
 
 #define SIMPROTIMER 4711
-#define UPDINTERVALL 100  //msec. zwischen updates
+#define UPDINTERVALL 200  //msec. zwischen updates
 
 HDC Memhdc;
 
@@ -200,7 +200,8 @@ void FillCol(const Colour& c){
 #include <gtk/gtk.h>
 #include <pango/pango.h>
 #include "WinAdapt.h"
-#define UPDINTERVALL 100  //msec. zwischen updates
+
+
 
 extern void VtlPaint (int, int, int, int);
 extern void VtlZyk (void);

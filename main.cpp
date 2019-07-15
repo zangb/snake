@@ -169,7 +169,7 @@ void VtlMouse(int X, int Y){
     if(running == -1){
         //to reset click on the grey box
 
-        if(X > 150 && X < 450 && Y > 250 && Y < 350){
+        if(X > 100 && X < 500 && Y > 250 && Y < 350){
             //reset button was hit
             running = 0;
             length = 0;
