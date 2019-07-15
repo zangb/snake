@@ -16,7 +16,7 @@
 using namespace std;
 
 #define SIMPROTIMER 4711
-#define UPDINTERVALL 200  //msec. zwischen updates
+#define UPDINTERVALL 80  //msec. zwischen updates
 
 HDC Memhdc;
 
